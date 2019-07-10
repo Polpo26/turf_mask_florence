@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+
+    <title>turf difference</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+        <script src="florence.js"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id='map'></div>
+
+    <script>
+
+        var map = L.map('map', {
+                  center: [43.76, 11.25],
+                  zoom: 12
+                });
+
+        var basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // var polygon_admin_boundary = turf.polygon([[[112, -21], [116, -36], [146, -39], [153, -24], [133, -10], [112, -21]]]);
+        //
+        // var masked = turf.mask(polygon_admin_boundary);
+        var masked = turf.mask(florence);
+        L.geoJSON(masked, {"fillOpacity": 0.99, color: '#2e0afc', weight: 5}).addTo(map);
+
+    </script>
+
+  </body>
+</html>
